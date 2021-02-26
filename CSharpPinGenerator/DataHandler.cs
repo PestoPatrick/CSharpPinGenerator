@@ -13,7 +13,7 @@ namespace CSharpPinGenerator
     public static class DataHandler
     {
         
-        public static void SaveData(PinClass pinClass)
+        public static void SaveData(PinHashTables pinClass)
         {
 
             string pinsFile = @"./Pins.json";
@@ -51,7 +51,7 @@ namespace CSharpPinGenerator
 
         }
 
-        public static Hashtable ValidateData(PinClass existingPins)
+        public static Hashtable ValidateData(PinHashTables existingPins)
         {
             if (existingPins.PinsAlreadyGenned.ContainsValue("0000"))
             {

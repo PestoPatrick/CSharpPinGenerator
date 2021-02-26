@@ -19,11 +19,11 @@ namespace CSharpPinGenerator
             return stringPin;
         }
 
-        public string Generate(PinClass pinClass)
+        public string Generate(PinHashTables pinClass)
         {
             string pin = GenRandomPinNumber();
             string pinPadded = pin.PadLeft(4, '0');
-            while (pinClass.pinsNotToGen.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsValue(pinPadded))
+            while (pinClass.PinsNotToGen.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsValue(pinPadded))
             {
                 pin = GenRandomPinNumber();
                 pinPadded = pin.PadLeft(4, '0');

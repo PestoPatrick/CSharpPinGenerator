@@ -12,11 +12,11 @@ namespace CSharpPinGenerator
 
             string choice = "1";
             PinGenerator pinGenerator = new PinGenerator();
-            PinClass loadPinClass = new PinClass();
-            PinClass ValidatedpinClass = new PinClass();
-            loadPinClass.PinsAlreadyGenned = DataHandler.LoadData();
-            ValidatedpinClass.PinsAlreadyGenned = DataHandler.ValidateData(loadPinClass);
-            Console.WriteLine(ValidatedpinClass.PinsAlreadyGenned.Count);
+            PinHashTables loadPinHashTables = new PinHashTables();
+            PinHashTables validatedPin = new PinHashTables();
+            loadPinHashTables.PinsAlreadyGenned = DataHandler.LoadData();
+            validatedPin.PinsAlreadyGenned = DataHandler.ValidateData(loadPinHashTables);
+            Console.WriteLine(validatedPin.PinsAlreadyGenned.Count);
 
             while (choice == "1")
             {
@@ -25,11 +25,11 @@ namespace CSharpPinGenerator
                 choice = Console.ReadLine();
                 if (choice == "1")
                 {
-                    string pinGenned = pinGenerator.Generate(ValidatedpinClass);
+                    string pinGenned = pinGenerator.Generate(validatedPin);
                     Console.WriteLine("Number: {0}", pinGenned);
                 } else if (choice == "2")
                 {
-                    DataHandler.SaveData(ValidatedpinClass);
+                    DataHandler.SaveData(validatedPin);
                     choice = "2";
 
 
@@ -37,7 +37,7 @@ namespace CSharpPinGenerator
                 {
                     
 
-                    foreach (DictionaryEntry item in ValidatedpinClass.PinsAlreadyGenned)
+                    foreach (DictionaryEntry item in validatedPin.PinsAlreadyGenned)
                     {
                         Console.WriteLine("{0}, {1}", item.Key, item.Value);
                     }

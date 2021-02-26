@@ -2,14 +2,14 @@
 
 namespace CSharpPinGenerator
 {
-    public class PinClass
+    public class PinHashTables
     {
-        public Hashtable pinsNotToGen;
+        public Hashtable PinsNotToGen;
         public Hashtable PinsAlreadyGenned { get; set; }
 
-        public PinClass()
+        public PinHashTables()
         {
-            pinsNotToGen = new Hashtable
+            PinsNotToGen = new Hashtable
             {
                 {1, "1234"},
                 {2, "1111"},
