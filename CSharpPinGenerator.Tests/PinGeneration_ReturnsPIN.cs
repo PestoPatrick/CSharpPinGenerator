@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CSharpPinGenerator.Tests
 {   [TestClass]
@@ -8,9 +7,10 @@ namespace CSharpPinGenerator.Tests
         [TestMethod]
         public void PinGenerator_PinGeneration()
         {
-            var randomGenerator = new CSharpPinGenerator.PinGenerator();
+            var pinClass = new PinHashTables();
+            var randomGenerator = new PinGenerator();
             string comparisonDigitString = "0000";
-            string result = randomGenerator.Generate();
+            var result = randomGenerator.GeneratePinNumber(pinClass);
 
             Assert.AreEqual(comparisonDigitString.Length, result.Length);
         }
