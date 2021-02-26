@@ -35,8 +35,6 @@ namespace CSharpPinGenerator
 
                 } else if (choice == "3")
                 {
-                    
-
                     foreach (DictionaryEntry item in validatedPin.PinsAlreadyGenned)
                     {
                         Console.WriteLine("{0}, {1}", item.Key, item.Value);

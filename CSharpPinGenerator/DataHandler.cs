@@ -45,7 +45,10 @@ namespace CSharpPinGenerator
             string pinFile = @"./Pins.json";
             
             if (File.Exists(pinFile)){ return;}
-            var nullJsonTable = new Hashtable {{1,"0000"}};
+            var nullJsonTable = new Hashtable
+            {
+                {1,"0000"},
+            };
             string nullJson = JsonSerializer.Serialize(nullJsonTable);
             File.WriteAllText(pinFile,nullJson);
 

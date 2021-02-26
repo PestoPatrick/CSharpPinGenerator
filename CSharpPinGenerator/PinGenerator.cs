@@ -38,7 +38,7 @@ namespace CSharpPinGenerator
             }
             else
             {
-                if (pinClass.PinsAlreadyGenned.Count == 9980)
+                if (pinClass.PinsAlreadyGenned.Count == 9981)
                 {
                     pinClass.PinsAlreadyGenned.Clear();
                 }
