@@ -25,16 +25,44 @@ namespace CSharpPinGenerator
 
         }
 
-        public static async Task<Hashtable> LoadData()
+        public static Hashtable LoadData()
         {
             string pinsFile = @"./Pins.json";
 
-            using FileStream openStream = File.OpenRead(pinsFile);
-            var generatedPinsJSON = await JsonSerializer.DeserializeAsync<Hashtable>(openStream);
+            CheckFileExists();
+
+            var jsonString = File.ReadAllText(pinsFile);
+
+            var generatedPinsJSON = JsonSerializer.Deserialize<Hashtable>(jsonString);
 
             return generatedPinsJSON;
 
 
+        }
+
+        public static void CheckFileExists()
+        {
+            string pinFile = @"./Pins.json";
+            
+            if (File.Exists(pinFile)){ return;}
+            var nullJsonTable = new Hashtable {{1,"0000"}};
+            string nullJson = JsonSerializer.Serialize(nullJsonTable);
+            File.WriteAllText(pinFile,nullJson);
+
+        }
+
+        public static Hashtable ValidateData(PinClass existingPins)
+        {
+            if (existingPins.PinsAlreadyGenned.ContainsValue("0000"))
+            {
+                existingPins.PinsAlreadyGenned.Clear();
+                return existingPins.PinsAlreadyGenned;
+
+            }
+            else
+            {
+                return existingPins.PinsAlreadyGenned;
+            }
         }
     }
 }
