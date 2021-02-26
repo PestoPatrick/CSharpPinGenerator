@@ -5,34 +5,39 @@ namespace CSharpPinGenerator
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var pinClass = new PinClass();
-            var pinGenerator = new PinGenerator();
 
-            // for when it needs to run once, use the date offset as the key value in the hashtable 
-            for (long i = 0; i < 9980; i++)
+            string choice = "1";
+            PinGenerator pinGenerator = new PinGenerator();
+
+            while (choice == "1")
             {
-                string pin = pinGenerator.GenPin();
-                string pinPadded = pin.PadLeft(4, '0');
-                while (pinClass.pinsNotToGen.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsValue(pinPadded))
+                
+                Console.WriteLine("Type 1 to generate a PIN. 2 to Exit");
+                choice = Console.ReadLine();
+                if (choice == "1")
                 {
-                    pin = pinGenerator.GenPin();
-                    pinPadded = pin.PadLeft(4, '0');
-                }
-
-                if (Int32.Parse(pinPadded) < 1000)
+                    string pinGenned = pinGenerator.Generate();
+                    Console.WriteLine("Number: {0}", pinGenned);
+                } else if (choice == "2")
                 {
-                    pinClass.PinsAlreadyGenned.Add(i, pinPadded);
-                    Console.WriteLine("Number: {0}",pinPadded);
+                    choice = "2";
                 }
                 else
                 {
-                    pinClass.PinsAlreadyGenned.Add(i,pinPadded);
-                    Console.WriteLine("Number: {0}",pinPadded);
+                    Console.WriteLine("Please enter valid input");
+                    choice = "1";
                 }
+
             }
-            Console.WriteLine(pinClass.PinsAlreadyGenned.Count);
+            
+
+           
+            
         }
+
+
+        
     }
 }
