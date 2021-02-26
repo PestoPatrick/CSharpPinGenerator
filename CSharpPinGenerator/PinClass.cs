@@ -2,7 +2,7 @@
 
 namespace CSharpPinGenerator
 {
-    class PinClass
+    public class PinClass
     {
         public Hashtable pinsNotToGen;
         public Hashtable PinsAlreadyGenned { get; set; }

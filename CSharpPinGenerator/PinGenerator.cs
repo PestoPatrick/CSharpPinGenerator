@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 
 namespace CSharpPinGenerator
 {
@@ -6,7 +7,7 @@ namespace CSharpPinGenerator
     {
         private readonly Random _random = new Random();
 
-        private PinClass pinClass = new PinClass();
+        
         
         
 
@@ -18,7 +19,7 @@ namespace CSharpPinGenerator
             return stringPin;
         }
 
-        public string Generate()
+        public string Generate(PinClass pinClass)
         {
             string pin = GenRandomPinNumber();
             string pinPadded = pin.PadLeft(4, '0');
@@ -37,6 +38,11 @@ namespace CSharpPinGenerator
             }
             else
             {
+                if (pinClass.PinsAlreadyGenned.Count == 9980)
+                {
+                    pinClass.PinsAlreadyGenned.Clear();
+                }
+
                 pinClass.PinsAlreadyGenned.Add(DateTimeOffset.Now.ToUnixTimeMilliseconds(), pinPadded);
                 return pinPadded;
             }
