@@ -4,8 +4,11 @@ namespace CSharpPinGenerator
 {
     public class PinHashTables
     {
+        // Declaring fields
         public Hashtable PinsNotToGen;
         public Hashtable PinsAlreadyGenned { get; set; }
+        
+        // Instantiate a hashtable of pin numbers not to generate and a hashtable to store already generated pins
 
         public PinHashTables()
         {

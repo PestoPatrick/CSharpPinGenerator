@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 
 namespace CSharpPinGenerator
 {
@@ -7,45 +6,42 @@ namespace CSharpPinGenerator
     {
         private readonly Random _random = new Random();
 
-        
-        
-        
 
-        private string GenRandomPinNumber()
+
+
+        // Generate random number between 0 and 10000 and convert it to a string.
+        private string GenRandomNumber()
         {
-         
             int pin = _random.Next(10000);
             string stringPin = pin.ToString();
             return stringPin;
         }
 
-        public string Generate(PinHashTables pinClass)
+
+        // This function will return and validate the pin number to be generated for the user
+        public string GeneratePinNumber(PinHashTables pinClass)
         {
-            string pin = GenRandomPinNumber();
+            // Retrieve random number as a string and add zeroes if below 1000
+            string pin = GenRandomNumber();
             string pinPadded = pin.PadLeft(4, '0');
+
+            // While the generated number is a forbidden pin number or one that has been generated already, generate a new number
             while (pinClass.PinsNotToGen.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsValue(pinPadded))
             {
-                pin = GenRandomPinNumber();
+                pin = GenRandomNumber();
                 pinPadded = pin.PadLeft(4, '0');
             }
 
-            if (Int32.Parse(pinPadded) < 1000)
+            // if all possible numbers except forbidden numbers have been generated, clear the hashtable
+            if (pinClass.PinsAlreadyGenned.Count == 9981)
             {
-                pinClass.PinsAlreadyGenned.Add(DateTimeOffset.Now.ToUnixTimeMilliseconds(), pinPadded);
-                return pinPadded;
-
-
-            }
-            else
-            {
-                if (pinClass.PinsAlreadyGenned.Count == 9981)
-                {
                     pinClass.PinsAlreadyGenned.Clear();
-                }
-
-                pinClass.PinsAlreadyGenned.Add(DateTimeOffset.Now.ToUnixTimeMilliseconds(), pinPadded);
-                return pinPadded;
             }
+
+            // Add new pin number to hashtable of previously generated numbers and return to output to display
+            pinClass.PinsAlreadyGenned.Add(DateTimeOffset.Now.ToUnixTimeMilliseconds(), pinPadded);
+            return pinPadded;
+            
         }
 
 

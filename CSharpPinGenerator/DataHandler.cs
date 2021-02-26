@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Globalization;
 using System.IO;
-using System.IO.Enumeration;
-using System.Reflection;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CSharpPinGenerator
 {
     public static class DataHandler
     {
-        
+        // Serialize and write pin numbers to a JSON document titled Pins.json. All the functions use this same document.
         public static void SaveData(PinHashTables pinClass)
         {
 
@@ -25,6 +20,8 @@ namespace CSharpPinGenerator
 
         }
 
+
+        // Load pin numbers from json storage file called Pins.json and deserialize them into a Hashtable and return it. 
         public static Hashtable LoadData()
         {
             string pinsFile = @"./Pins.json";
@@ -36,10 +33,13 @@ namespace CSharpPinGenerator
             var generatedPinsJSON = JsonSerializer.Deserialize<Hashtable>(jsonString);
 
             return generatedPinsJSON;
-
+            
 
         }
 
+
+
+        // Function to check if the Pin storage file (A JSON document) exists. If not it populates a new one with a dummy pin number entry.
         public static void CheckFileExists()
         {
             string pinFile = @"./Pins.json";
@@ -54,6 +54,7 @@ namespace CSharpPinGenerator
 
         }
 
+        // Validate if the pin numbers document has placeholder number in it and if so clear the hashtable in the existingPins parameter and return to method caller.
         public static Hashtable ValidateData(PinHashTables existingPins)
         {
             if (existingPins.PinsAlreadyGenned.ContainsValue("0000"))
