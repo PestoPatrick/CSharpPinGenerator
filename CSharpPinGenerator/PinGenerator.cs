@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace CSharpPinGenerator
 {
@@ -25,19 +26,21 @@ namespace CSharpPinGenerator
             string pin = GenRandomNumber();
             string pinPadded = pin.PadLeft(4, '0');
 
+            // if all possible numbers except forbidden numbers have been generated, clear the hashtable
+            if (pinClass.PinsAlreadyGenned.Count == 9980)
+            {
+                pinClass.PinsAlreadyGenned.Clear();
+            }
+
+
             // While the generated number is a forbidden pin number or one that has been generated already, generate a new number
-            while (pinClass.PinsNotToGen.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsValue(pinPadded))
+            while (pinClass.PinsNotToGen.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsValue(pinPadded) || pinClass.PinsAlreadyGenned.ContainsKey(DateTimeOffset.Now.ToUnixTimeMilliseconds()))
             {
                 pin = GenRandomNumber();
                 pinPadded = pin.PadLeft(4, '0');
             }
 
-            // if all possible numbers except forbidden numbers have been generated, clear the hashtable
-            if (pinClass.PinsAlreadyGenned.Count == 9981)
-            {
-                    pinClass.PinsAlreadyGenned.Clear();
-            }
-
+            
             // Add new pin number to hashtable of previously generated numbers and return to output to display
             pinClass.PinsAlreadyGenned.Add(DateTimeOffset.Now.ToUnixTimeMilliseconds(), pinPadded);
             return pinPadded;
